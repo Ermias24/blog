@@ -1,0 +1,53 @@
+{% extends "base.html" %} 
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+    
+    .head_text {
+        color: white;
+    }
+    
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<header class="head">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-12 mx-auto">
+                <div class="heading">
+                    <h3 class="heading text-white"> Demo Project </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-10 mt-3 left">
+            {% for post in post_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted h6">{{ post.writer }} | {{ post.created_on}} </p>
+                    <p class="card-text">{{post.content|slice:":150" }}</p>
+                    <p>{% if post.image %}
+                        <img width ="500" height = "300" src = "{{post.image.url}}" alt = "..."/>
+                        {% else %}
+                        <p class="card-text text-muted h6">Image not uploaded</p>
+                        {% endif %}</p>
+                    <a href="{% url 'demoapp:post_detail' post.slug  %}" class="btn btn-link">Read More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{%endblock%}
